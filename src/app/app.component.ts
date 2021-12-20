@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Platform } from '@ionic/angular';
+import { SQLiteService } from './shared/services/sqlite.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,23 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+
+  private initPlugin: boolean;
+
+  constructor(
+    private platform: Platform,
+    private _sqlite: SQLiteService
+  ) {
+    this.initializeApp();
+  }
+
+  initializeApp() {
+    this.platform.ready().then(async () => {
+      this._sqlite.initializePlugin().then(async ret => {
+        this.initPlugin = ret;
+        console.log('>>>> in App  this.initPlugin ' + this.initPlugin);
+        await this._sqlite.createDataBase();
+      });
+    });
+  }
 }
