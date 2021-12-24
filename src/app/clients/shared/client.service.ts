@@ -1,6 +1,7 @@
 import { Client } from './client';
 import { SQLiteService } from './../../shared/services/sqlite.service';
 import { Injectable } from '@angular/core';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({
   providedIn: 'root',
@@ -18,15 +19,34 @@ export class ClientService {
   }
 
   private insert(client: Client) {
-    const sql = 'insert into clients (name,status) values (?,?)';
-    const data = [client.name, client.status];
+    const sql =
+      'insert into clients (name,status,email,register_number,cpf, phone, address, internal_id) values (?,?,?,?,?,?,?,?)';
+    const data = [
+      client.name,
+      client.status,
+      client.email,
+      client.registerNumber,
+      client.cpf,
+      client.phone,
+      client.address,
+      uuidv4()
+    ];
 
     return this.sqliteService.doRun(sql, data);
   }
 
   private update(client: Client) {
-    const sql = 'update clients set name = ? where id = ?';
-    const data = [client.name, client.id];
+    const sql =
+      'update clients set name = ?, email = ?, register_number = ?, cpf = ?, phone = ?, address = ? where id = ?';
+    const data = [
+      client.name,
+      client.email,
+      client.registerNumber,
+      client.cpf,
+      client.phone,
+      client.address,
+      client.id,
+    ];
     return this.sqliteService.doRun(sql, data);
   }
 
@@ -43,7 +63,7 @@ export class ClientService {
     const clients = this.fill(result.values);
     const client = new Client();
 
-    if(clients.length && clients.length > 0) {
+    if (clients.length && clients.length > 0) {
       return clients[0];
     }
 
@@ -74,7 +94,10 @@ export class ClientService {
           row.email,
           row.cpf,
           row.register_number,
-          row.status
+          row.status,
+          row.internal_id,
+          row.phone,
+          row.address
         )
       );
     });

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-        <ion-back-button></ion-back-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
 
     <ion-title>{{ title }}</ion-title>
@@ -12,13 +12,93 @@
   <form (ngSubmit)="onSubmit()">
     <ion-item>
       <ion-label position="stacked">Nome</ion-label>
-      <ion-input autocapitalize="on" [(ngModel)]="client.name" name="name"></ion-input>
+      <ion-input
+        autocapitalize="on"
+        [(ngModel)]="client.name"
+        name="name"
+        maxlength="50"
+      ></ion-input>
     </ion-item>
 
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input [(ngModel)]="client.email" name="email" type="email" maxlength="30"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Cpf</ion-label>
+      <ion-input [(ngModel)]="client.cpf" name="cpf" maxlength="14"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Registro</ion-label>
+      <ion-input
+        [(ngModel)]="client.registerNumber"
+        name="registerNumber"
+        maxlength="50"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Telefone</ion-label>
+      <ion-input [(ngModel)]="client.phone" name="phone" type="tel" maxlength="30"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Endereço</ion-label>
+      <ion-input [(ngModel)]="client.address" name="address" maxlength="80"></ion-input>
+    </ion-item>
+
+    <ion-list class="client-form-page-list">
+
+      <ion-list-header>
+        <ion-label class="title">Equipamentos</ion-label>
+        <ion-button color="secondary">Adicionar</ion-button>
+      </ion-list-header>
+
+      <ion-item-sliding>
+        <ion-item>
+          <ion-label class="ion-text-wrap">
+            <ion-text>
+              <h3>equipamento x</h3>
+            </ion-text>
+            <p>última manutencao 22/12/2222</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item-options side="start">
+          <ion-item-option> Editar </ion-item-option>
+        </ion-item-options>
+
+        <ion-item-options side="end">
+          <ion-item-option color="danger"> Excluir </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+
+      <ion-item-sliding>
+        <ion-item>
+          <ion-label class="ion-text-wrap">
+            <ion-text>
+              <h3>equipamento 2 x</h3>
+            </ion-text>
+            <p>última manutencao 22/12/2222</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item-options side="start">
+          <ion-item-option> Editar </ion-item-option>
+        </ion-item-options>
+
+        <ion-item-options side="end">
+          <ion-item-option color="danger"> Excluir </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
     <div class="ion-margin-vertical">
-        <ion-button type="submit" color="secondary" expand="block">Salvar</ion-button>
+      <ion-button type="submit" color="secondary" expand="block"
+        >Salvar</ion-button
+      >
     </div>
   </form>
-
-
 </ion-content>
