@@ -1,3 +1,4 @@
+import { SQLiteService } from './../../shared/services/sqlite.service';
 import { ClientService } from './../shared/client.service';
 import { Client } from './../shared/client';
 import { Component, OnInit } from '@angular/core';
@@ -16,7 +17,8 @@ export class ClientsFormPage implements OnInit {
   constructor(
     private clientService: ClientService,
     private route: ActivatedRoute,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private sqlite: SQLiteService,
   ) {}
 
   ngOnInit() {
@@ -31,6 +33,7 @@ export class ClientsFormPage implements OnInit {
 
   async loadClient(id: number) {
     this.client = await this.clientService.getById(id);
+    console.log('[this.client]', JSON.stringify(this.client));
   }
 
   async onSubmit() {
@@ -58,5 +61,10 @@ export class ClientsFormPage implements OnInit {
 
       toast.present();
     }
+  }
+
+  async backupDb() {
+    const bkp = await this.sqlite.exportDatabase();
+    console.log('database', JSON.stringify(bkp));
   }
 }

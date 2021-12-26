@@ -71,13 +71,13 @@ export class ClientService {
   }
 
   async getAll() {
-    const sql = 'select * from clients where status = "active"';
+    const sql = 'select * from clients where status = "active" order by name';
     const result = await this.sqliteService.doQuery(sql);
     return this.fill(result.values);
   }
 
   async filter(text: string) {
-    const sql = 'select * from clients where name like ? and status = "active"';
+    const sql = 'select * from clients where name like ? and status = "active" order by name';
     const data = [`%${text}%`];
     const result = await this.sqliteService.doQuery(sql, data);
     return this.fill(result.values);

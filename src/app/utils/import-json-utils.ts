@@ -19,5 +19,31 @@ export const defaultDb: any = {
         { column: 'last_modified', value: "INTEGER DEFAULT (strftime('%s', 'now'))"},
       ],
     },
+    {
+      name: 'equipments',
+      schema: [
+        { column: 'id', value: 'INTEGER PRIMARY KEY NOT NULL' },
+        { column: 'internal_id', value: 'TEXT' },
+        { column: 'internal_client_id', value: 'TEXT' },
+        { column: 'name', value: 'TEXT' },
+        { column: 'serial_number', value: 'TEXT' },
+        { column: 'model', value: 'TEXT' },
+        { column: 'producer', value: 'TEXT' },
+        { column: 'info', value: 'TEXT' },
+        { column: 'last_modified', value: "INTEGER DEFAULT (strftime('%s', 'now'))"},
+      ],
+    },
+    {
+      name: 'maintenance',
+      schema: [
+        { column: 'id', value: 'INTEGER PRIMARY KEY NOT NULL' },
+        { column: 'internal_equipment_id', value: 'TEXT' },
+        { column: 'professional_related', value: 'TEXT' },
+        { column: 'made_at', value: 'INTEGER' },
+        { column: 'guarantee', value: 'INTEGER' },
+        { column: 'info', value: 'TEXT' },
+        { column: 'last_modified', value: "INTEGER DEFAULT (strftime('%s', 'now'))"},
+      ],
+    },
   ],
 };

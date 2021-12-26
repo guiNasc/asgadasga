@@ -1,3 +1,4 @@
+import { EquipmentsListPageModule } from './../equipments-list/equipments-list.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +14,8 @@ import { ClientsFormPage } from './clients-form.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ClientsFormPageRoutingModule
+    ClientsFormPageRoutingModule,
+    EquipmentsListPageModule,
   ],
   declarations: [ClientsFormPage]
 })

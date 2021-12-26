@@ -27,7 +27,7 @@ export class ClientsListPage implements OnInit {
   }
 
   doSearchClear() {
-    this.loadClients();
+    this.loadClients();''
   }
 
   async doSearchbarChange($event: any) {
@@ -45,7 +45,7 @@ export class ClientsListPage implements OnInit {
 
       const toast = await this.toast.create({
         header: 'Sucesso',
-        message: 'Contato exlu[ido com sucesso.',
+        message: 'Contato exluído com sucesso.',
         color: 'success',
         position: `bottom`,
         duration: 3000,
@@ -56,7 +56,7 @@ export class ClientsListPage implements OnInit {
 
       const toast = await this.toast.create({
         header: 'Erro',
-        message: 'Nao foi possivel excluir o contato.',
+        message: 'Não foi possível excluir o contato.',
         color: 'danger',
         position: `bottom`,
         duration: 3000,

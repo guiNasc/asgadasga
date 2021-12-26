@@ -12,7 +12,6 @@ import {
   capSQLiteResult,
 } from '@capacitor-community/sqlite';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -467,18 +466,25 @@ export class SQLiteService {
 
   async createDataBase() {
     const dbExists = await this.isDatabase(defaultDb.database);
-      if (dbExists) {
-        return;
-      }
+    if (dbExists) {
+      return;
+    }
 
-      const result = await this.importFromJson(JSON.stringify(defaultDb));
-      if (result.changes.changes === -1 ) {
-        return Promise.reject(new Error("ImportFromJson 'full' dataToImport failed"));
-      }
+    const result = await this.importFromJson(JSON.stringify(defaultDb));
+    if (result.changes.changes === -1) {
+      return Promise.reject(
+        new Error("ImportFromJson 'full' dataToImport failed")
+      );
+    }
   }
 
   async doQuery(statement: string, params?: any[]): Promise<capSQLiteValues> {
-    const appDB = await this.createConnection(defaultDb.database, defaultDb.encrypted, defaultDb.mode, defaultDb.version);
+    const appDB = await this.createConnection(
+      defaultDb.database,
+      defaultDb.encrypted,
+      defaultDb.mode,
+      defaultDb.version
+    );
     await appDB.open();
     const result = await appDB.query(statement, params);
     await this.closeConnection(defaultDb.database);
@@ -486,11 +492,43 @@ export class SQLiteService {
   }
 
   async doRun(statement: string, params?: any[]): Promise<capSQLiteChanges> {
-    const appDB = await this.createConnection(defaultDb.database, defaultDb.encrypted, defaultDb.mode, defaultDb.version);
+    const appDB = await this.createConnection(
+      defaultDb.database,
+      defaultDb.encrypted,
+      defaultDb.mode,
+      defaultDb.version
+    );
     await appDB.open();
     const result = appDB.run(statement, params);
     await this.closeConnection(defaultDb.database);
     return result;
   }
 
+  /* TODO - fix this, returning error message 'ExportToJson: return Obj is not a JsonSQLite Obj' */
+  async exportDatabase(): Promise<any> {
+    if (this.sqlite != null) {
+      try {
+        const db: SQLiteDBConnection = await this.sqlite.createConnection(
+          defaultDb.database,
+          defaultDb.encrypted,
+          defaultDb.mode,
+          defaultDb.version
+        );
+        if (db != null) {
+          const dbbackup = await db.exportToJson("full");
+          console.log('asgadasga', JSON.stringify(dbbackup.export))
+          return Promise.resolve(dbbackup.export);
+        } else {
+          return Promise.reject(new Error(`no db returned is null`));
+        }
+      } catch (err) {
+        console.log('err exportDatabase', err);
+        return Promise.reject(new Error(err));
+      }
+    } else {
+      return Promise.reject(
+        new Error(`no connection open for ${defaultDb.database}`)
+      );
+    }
+  }
 }

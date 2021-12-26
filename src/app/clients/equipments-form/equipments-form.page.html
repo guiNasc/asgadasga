@@ -14,56 +14,49 @@
       <ion-label position="stacked">Nome</ion-label>
       <ion-input
         autocapitalize="on"
-        [(ngModel)]="client.name"
+        [(ngModel)]="equipment.name"
         name="name"
         maxlength="50"
       ></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Email</ion-label>
+      <ion-label position="stacked">Número de série</ion-label>
       <ion-input
-        [(ngModel)]="client.email"
-        name="email"
-        type="email"
+        [(ngModel)]="equipment.serialNumber"
+        name="serialNumber"
+        type="serialNumber"
         maxlength="30"
       ></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Cpf</ion-label>
-      <ion-input [(ngModel)]="client.cpf" name="cpf" maxlength="14"></ion-input>
+      <ion-label position="stacked">Modelo</ion-label>
+      <ion-input
+        [(ngModel)]="equipment.model"
+        name="model"
+        maxlength="30"
+      ></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Registro</ion-label>
+      <ion-label position="stacked">Fabricante</ion-label>
       <ion-input
-        [(ngModel)]="client.registerNumber"
-        name="registerNumber"
+        [(ngModel)]="equipment.producer"
+        name="producer"
         maxlength="50"
       ></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Telefone</ion-label>
-      <ion-input
-        [(ngModel)]="client.phone"
-        name="phone"
-        type="tel"
-        maxlength="30"
-      ></ion-input>
+      <ion-label position="stacked">Informações adicionais</ion-label>
+      <ion-textarea
+        [(ngModel)]="equipment.info"
+        name="info"
+        type="text"
+        maxlength="500"
+      ></ion-textarea>
     </ion-item>
-
-    <ion-item>
-      <ion-label position="stacked">Endereço</ion-label>
-      <ion-input
-        [(ngModel)]="client.address"
-        name="address"
-        maxlength="80"
-      ></ion-input>
-    </ion-item>
-
-    <app-equipments-list [client]="client"></app-equipments-list>
 
     <div class="ion-margin-vertical">
       <ion-button type="submit" color="secondary" expand="block"
