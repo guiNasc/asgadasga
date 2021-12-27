@@ -1,7 +1,8 @@
+import { EquipmentsListPage } from './../equipments-list/equipments-list.page';
 import { SQLiteService } from './../../shared/services/sqlite.service';
 import { ClientService } from './../shared/client.service';
 import { Client } from './../shared/client';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
@@ -14,11 +15,13 @@ export class ClientsFormPage implements OnInit {
   title: string = 'Novo Cliente';
   client: Client;
 
+  @ViewChild(EquipmentsListPage) equipmentsList: EquipmentsListPage;
+
   constructor(
     private clientService: ClientService,
     private route: ActivatedRoute,
     private toastCtrl: ToastController,
-    private sqlite: SQLiteService,
+    private sqlite: SQLiteService
   ) {}
 
   ngOnInit() {
@@ -31,15 +34,19 @@ export class ClientsFormPage implements OnInit {
     }
   }
 
+  ionViewWillEnter() {
+    this.equipmentsList.load();
+  }
+
   async loadClient(id: number) {
     this.client = await this.clientService.getById(id);
-    console.log('[this.client]', JSON.stringify(this.client));
   }
 
   async onSubmit() {
     try {
       const result = await this.clientService.save(this.client);
-      this.client.id = result.changes.lastId;
+      const id = this.client.id || result.changes.lastId;
+      this.client = await this.clientService.getById(id);
 
       const toast = await this.toastCtrl.create({
         header: 'Sucesso',

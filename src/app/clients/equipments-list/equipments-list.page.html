@@ -2,11 +2,11 @@
 
   <ion-list-header>
     <ion-label class="title">Equipamentos</ion-label>
-    <ion-button color="secondary" [disabled]="!client.id" [routerLink]="['/equipments/new/client.internalId']" >Adicionar</ion-button>
+    <ion-button color="secondary" [disabled]="!client.id" [routerLink]="['/equipments/new/', client.internalId]" >Adicionar</ion-button>
   </ion-list-header>
 
   <ion-item-sliding *ngFor="let equipment of equipments">
-    <ion-item [routerLink]="['edit', equipment.id]">
+    <ion-item [routerLink]="['/equipments/edit/', equipment.id]">
       <ion-label class="ion-text-wrap">
         <ion-text>
           <h3>{{equipment.name}}</h3>
@@ -16,11 +16,11 @@
     </ion-item>
 
     <ion-item-options side="start">
-      <ion-item-option [routerLink]="['edit', equipment.id]" > Editar </ion-item-option>
+      <ion-item-option [routerLink]="['/equipments/edit/', equipment.id]" > Editar </ion-item-option>
     </ion-item-options>
 
     <ion-item-options side="end">
-      <ion-item-option color="danger" (click)="delete(client)" > Excluir </ion-item-option>
+      <ion-item-option color="danger" (click)="delete(equipment)" > Excluir </ion-item-option>
     </ion-item-options>
   </ion-item-sliding>
 

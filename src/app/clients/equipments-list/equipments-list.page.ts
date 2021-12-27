@@ -1,7 +1,13 @@
 import { Client } from './../shared/client';
 import { EquipmentService } from './../shared/equipment.service';
 import { Equipment } from './../shared/equipment';
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
@@ -9,10 +15,9 @@ import { AlertController, ToastController } from '@ionic/angular';
   templateUrl: './equipments-list.page.html',
   styleUrls: ['./equipments-list.page.scss'],
 })
-export class EquipmentsListPage implements OnInit {
-
+export class EquipmentsListPage implements OnInit, OnChanges {
   @Input()
-  client: Client;
+  client: any;
 
   equipments: Equipment[] = [];
 
@@ -20,19 +25,21 @@ export class EquipmentsListPage implements OnInit {
     private alert: AlertController,
     private toast: ToastController,
     private equipmentService: EquipmentService
-  ) { }
+  ) {}
 
-  ngOnInit() {
-    this.load();
-  }
+  ngOnInit() {}
 
-  ionViewWillEnter() {
-    this.load();
+  async ngOnChanges(changes: SimpleChanges) {
+    this.client = changes.client.currentValue || new Client();
+    await this.load();
   }
 
   async load() {
-    this.equipments = await this.equipmentService.getAllByClientId(this.client.internalId);
-    console.log('equipments', this.equipments);
+    if (this.client && this.client.internalId) {
+      this.equipments = await this.equipmentService.getAllByClientId(
+        this.client.internalId
+      );
+    }
   }
 
   async executeDelete(equipment: Equipment) {
@@ -51,7 +58,6 @@ export class EquipmentsListPage implements OnInit {
 
       toast.present();
     } catch (error) {
-
       const toast = await this.toast.create({
         header: 'Erro',
         message: 'Não foi possível excluir o equipamento.',
@@ -81,6 +87,4 @@ export class EquipmentsListPage implements OnInit {
     });
     alert.present();
   }
-
-
 }

@@ -201,6 +201,7 @@ export class SQLiteService {
       try {
         return Promise.resolve(await this.sqlite.retrieveConnection(database));
       } catch (err) {
+        console.log('error aqui', err);
         return Promise.reject(new Error(err));
       }
     } else {
@@ -478,13 +479,26 @@ export class SQLiteService {
     }
   }
 
+  async getConnection(): Promise<SQLiteDBConnection> {
+    return await this.retrieveConnection(defaultDb.database)
+      .then((res) => res)
+      .catch(async (err) => {
+        return await this.createConnection(
+          defaultDb.database,
+          defaultDb.encrypted,
+          defaultDb.mode,
+          defaultDb.version
+        );
+      });
+    /* console.log('connection', connection)
+    if (connection) {
+      return connection;
+    } */
+  }
+
   async doQuery(statement: string, params?: any[]): Promise<capSQLiteValues> {
-    const appDB = await this.createConnection(
-      defaultDb.database,
-      defaultDb.encrypted,
-      defaultDb.mode,
-      defaultDb.version
-    );
+    const appDB = await this.getConnection();
+    console.log('[doQuery]', statement, params);
     await appDB.open();
     const result = await appDB.query(statement, params);
     await this.closeConnection(defaultDb.database);
@@ -498,6 +512,7 @@ export class SQLiteService {
       defaultDb.mode,
       defaultDb.version
     );
+    console.log('[doRun]', statement, params);
     await appDB.open();
     const result = appDB.run(statement, params);
     await this.closeConnection(defaultDb.database);
@@ -515,8 +530,8 @@ export class SQLiteService {
           defaultDb.version
         );
         if (db != null) {
-          const dbbackup = await db.exportToJson("full");
-          console.log('asgadasga', JSON.stringify(dbbackup.export))
+          const dbbackup = await db.exportToJson('full');
+          console.log('asgadasga', JSON.stringify(dbbackup.export));
           return Promise.resolve(dbbackup.export);
         } else {
           return Promise.reject(new Error(`no db returned is null`));

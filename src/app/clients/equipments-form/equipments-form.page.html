@@ -59,7 +59,7 @@
     </ion-item>
 
     <div class="ion-margin-vertical">
-      <ion-button type="submit" color="secondary" expand="block"
+      <ion-button [disabled]="!equipment.name" type="submit" color="secondary" expand="block"
         >Salvar</ion-button
       >
     </div>

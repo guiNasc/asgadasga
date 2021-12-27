@@ -63,10 +63,10 @@
       ></ion-input>
     </ion-item>
 
-    <app-equipments-list [client]="client"></app-equipments-list>
+    <app-equipments-list #equipmentsList [client]="client"></app-equipments-list>
 
     <div class="ion-margin-vertical">
-      <ion-button type="submit" color="secondary" expand="block"
+      <ion-button [disabled]="!client.name" type="submit" color="secondary" expand="block"
         >Salvar</ion-button
       >
     </div>

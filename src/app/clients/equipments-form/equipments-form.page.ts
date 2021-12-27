@@ -10,8 +10,7 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./equipments-form.page.scss'],
 })
 export class EquipmentsFormPage implements OnInit {
-
-  title: string = "Novo Equipamento";
+  title: string = 'Novo Equipamento';
   equipment: Equipment;
   clientId: string;
 
@@ -19,17 +18,21 @@ export class EquipmentsFormPage implements OnInit {
     private route: ActivatedRoute,
     private equipmentService: EquipmentService,
     private toastCtrl: ToastController
-  ) { }
+  ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.equipment = new Equipment();
 
     const idParam = this.route.snapshot.paramMap.get('id');
     this.clientId = this.route.snapshot.paramMap.get('clientId');
     if (idParam) {
       this.title = 'Editar equipamento';
-      //this.loadClient(parseInt(idParam));
+      await this.load(parseInt(idParam));
     }
+  }
+
+  async load(id: number) {
+    this.equipment = await this.equipmentService.getById(id);
   }
 
   async onSubmit() {
@@ -59,5 +62,4 @@ export class EquipmentsFormPage implements OnInit {
       toast.present();
     }
   }
-
 }
