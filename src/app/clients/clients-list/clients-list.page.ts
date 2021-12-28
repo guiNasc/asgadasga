@@ -83,4 +83,5 @@ export class ClientsListPage implements OnInit {
     });
     alert.present();
   }
+
 }

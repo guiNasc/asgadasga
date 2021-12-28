@@ -59,9 +59,38 @@
     </ion-item>
 
     <div class="ion-margin-vertical">
-      <ion-button [disabled]="!equipment.name" type="submit" color="secondary" expand="block"
+      <ion-button
+        [disabled]="!equipment.name"
+        type="submit"
+        color="secondary"
+        expand="block"
         >Salvar</ion-button
+      >
+
+      <ion-button
+        color="secondary"
+        id="trigger-button"
+        expand="block"
+        [disabled]="!equipment.internalId"
+        >Gerar QRCode</ion-button
       >
     </div>
   </form>
+
+  <ion-modal trigger="trigger-button">
+    <ng-template>
+      <ion-header translucent>
+        <ion-toolbar>
+          <ion-title>Equipamento: {{equipment.name}}</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content fullscreen>
+        <qr-code
+          value="equipment.internalId"
+          size="300"
+          errorCorrectionLevel="M"
+        ></qr-code>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

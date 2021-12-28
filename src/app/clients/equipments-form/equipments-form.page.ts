@@ -39,7 +39,8 @@ export class EquipmentsFormPage implements OnInit {
     try {
       this.equipment.internalClientId = this.clientId;
       const result = await this.equipmentService.save(this.equipment);
-      this.equipment.id = result.changes.lastId;
+      const id = this.equipment.id || result.changes.lastId;
+      this.equipment = await this.equipmentService.getById(id);
 
       const toast = await this.toastCtrl.create({
         header: 'Sucesso',

@@ -490,10 +490,6 @@ export class SQLiteService {
           defaultDb.version
         );
       });
-    /* console.log('connection', connection)
-    if (connection) {
-      return connection;
-    } */
   }
 
   async doQuery(statement: string, params?: any[]): Promise<capSQLiteValues> {
