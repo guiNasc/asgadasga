@@ -97,7 +97,9 @@ export class ClientService {
           row.status,
           row.internal_id,
           row.phone,
-          row.address
+          row.address,
+          row.cnpj,
+          row.government_registration,
         )
       );
     });

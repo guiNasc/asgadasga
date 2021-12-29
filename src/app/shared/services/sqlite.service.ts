@@ -466,16 +466,16 @@ export class SQLiteService {
   }
 
   async createDataBase() {
-    const dbExists = await this.isDatabase(defaultDb.database);
-    if (dbExists) {
-      return;
-    }
-
-    const result = await this.importFromJson(JSON.stringify(defaultDb));
-    if (result.changes.changes === -1) {
-      return Promise.reject(
-        new Error("ImportFromJson 'full' dataToImport failed")
-      );
+    try {
+      const sql = 'select count(1) from clients where status = "active" order by name';
+      await this.doQuery(sql);
+    } catch (err) {
+      const result = await this.importFromJson(JSON.stringify(defaultDb));
+      if (result.changes.changes === -1) {
+        return Promise.reject(
+          new Error("ImportFromJson 'full' dataToImport failed")
+        );
+      }
     }
   }
 

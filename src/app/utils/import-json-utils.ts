@@ -16,6 +16,8 @@ export const defaultDb: any = {
         { column: 'status', value: 'TEXT' },
         { column: 'phone', value: 'TEXT' },
         { column: 'address', value: 'TEXT' },
+        { column: 'cnpj', value: 'TEXT' },
+        { column: 'government_registration', value: 'TEXT' },
         { column: 'last_modified', value: "INTEGER DEFAULT (strftime('%s', 'now'))"},
       ],
     },

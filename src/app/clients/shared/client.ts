@@ -8,6 +8,8 @@ export class Client {
   internalId: string;
   phone: string;
   address: string;
+  cnpj: string;
+  governmentRegistration: string;
 
   static build(
     id: number,
@@ -19,6 +21,8 @@ export class Client {
     internalId: string,
     phone: string,
     address: string,
+    cnpj: string,
+    governmentRegistration: string
   ): Client {
     const client = new Client();
     client.id = id;
@@ -30,6 +34,8 @@ export class Client {
     client.internalId = internalId;
     client.phone = phone;
     client.address = address;
+    client.cnpj = cnpj;
+    client.governmentRegistration = governmentRegistration;
     return client;
   }
 }
