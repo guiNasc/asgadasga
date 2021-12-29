@@ -86,4 +86,11 @@ export class ClientsListPage implements OnInit {
     });
     alert.present();
   }
+
+  async blurSearch($event) {
+    const value = $event.target.value;
+    if (!value || value.length < 2) {
+      this.clients = await this.clientService.getAll();
+    }
+  }
 }
