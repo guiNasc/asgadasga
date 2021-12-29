@@ -80,16 +80,66 @@
   <ion-modal trigger="trigger-button">
     <ng-template>
       <ion-header translucent>
-        <ion-toolbar>
-          <ion-title>Equipamento: {{equipment.name}}</ion-title>
+        <ion-toolbar color="primary">
+          <ion-title>QRCode do equipamento</ion-title>
         </ion-toolbar>
       </ion-header>
+
       <ion-content fullscreen>
-        <qr-code
-          value="equipment.internalId"
-          size="300"
-          errorCorrectionLevel="M"
-        ></qr-code>
+        <ion-card>
+          <qr-code
+            value="equipment.internalId"
+            size="300"
+            errorCorrectionLevel="M"
+          ></qr-code>
+
+        <!--   <ion-card-header>
+            <ion-card-subtitle>cliente</ion-card-subtitle>
+            <ion-card-title>Madison, WI</ion-card-title>
+          </ion-card-header> -->
+          <ion-card-content>
+            <ion-grid>
+
+              <ion-row>
+                <ion-col>
+                  <div>Equipamento:</div>
+                </ion-col>
+                <ion-col>
+                  <div>{{equipment.name}}</div>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <div>Número de série:</div>
+                </ion-col>
+                <ion-col>
+                  <div>{{equipment.serialNumber}}</div>
+                </ion-col>
+              </ion-row>
+
+
+              <ion-row>
+                <ion-col>
+                  <div>Modelo:</div>
+                </ion-col>
+                <ion-col>
+                  <div>{{equipment.model}}</div>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <div>Fabricante:</div>
+                </ion-col>
+                <ion-col>
+                  <div>{{equipment.producer}}</div>
+                </ion-col>
+              </ion-row>
+
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
       </ion-content>
     </ng-template>
   </ion-modal>

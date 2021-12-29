@@ -19,8 +19,9 @@ export class ClientService {
   }
 
   private insert(client: Client) {
-    const sql =
-      'insert into clients (name,status,email,register_number,cpf, phone, address, internal_id) values (?,?,?,?,?,?,?,?)';
+    const sql = `insert into clients
+      (name,status,email,register_number,cpf, phone, address, internal_id, cnpj, government_registration)
+        values (?,?,?,?,?,?,?,?,?,?)`;
     const data = [
       client.name,
       client.status,
@@ -29,15 +30,18 @@ export class ClientService {
       client.cpf,
       client.phone,
       client.address,
-      uuidv4()
+      uuidv4(),
+      client.cnpj,
+      client.governmentRegistration,
     ];
 
     return this.sqliteService.doRun(sql, data);
   }
 
   private update(client: Client) {
-    const sql =
-      'update clients set name = ?, email = ?, register_number = ?, cpf = ?, phone = ?, address = ? where id = ?';
+    const sql = `update clients set
+      name = ?, email = ?, register_number = ?, cpf = ?, phone = ?, address = ?, cnpj = ?, government_registration = ?
+      where id = ?`;
     const data = [
       client.name,
       client.email,
@@ -45,6 +49,8 @@ export class ClientService {
       client.cpf,
       client.phone,
       client.address,
+      client.cnpj,
+      client.governmentRegistration,
       client.id,
     ];
     return this.sqliteService.doRun(sql, data);
@@ -77,7 +83,8 @@ export class ClientService {
   }
 
   async filter(text: string) {
-    const sql = 'select * from clients where name like ? and status = "active" order by name';
+    const sql =
+      'select * from clients where name like ? and status = "active" order by name';
     const data = [`%${text}%`];
     const result = await this.sqliteService.doQuery(sql, data);
     return this.fill(result.values);
@@ -99,7 +106,7 @@ export class ClientService {
           row.phone,
           row.address,
           row.cnpj,
-          row.government_registration,
+          row.government_registration
         )
       );
     });
