@@ -1,7 +1,7 @@
 import { EquipmentService } from './../shared/equipment.service';
 import { Equipment } from './../shared/equipment';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
 @Component({
@@ -17,7 +17,8 @@ export class EquipmentsFormPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private equipmentService: EquipmentService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private router: Router
   ) {}
 
   async ngOnInit() {
@@ -36,12 +37,32 @@ export class EquipmentsFormPage implements OnInit {
     }
   }
 
+  async presentNotFoundToast() {
+    const toast = await this.toastCtrl.create({
+      header: 'Erro',
+      message: 'Equipamento não encontrado.',
+      color: 'danger',
+      position: 'top',
+      duration: 3000,
+    });
+
+    toast.present();
+  }
+
   async loadByInternalId(internalId: string) {
     this.equipment = await this.equipmentService.getByInternalId(internalId);
+    if (!this.equipment?.id) {
+      await this.presentNotFoundToast();
+      this.router.navigate(['/clients']);
+    }
   }
 
   async loadById(id: number) {
     this.equipment = await this.equipmentService.getById(id);
+    if (!this.equipment?.id) {
+      await this.presentNotFoundToast();
+      this.router.navigate(['/clients']);
+    }
   }
 
   async onSubmit() {
