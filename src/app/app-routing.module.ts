@@ -63,8 +63,19 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'equipments/edit/from-qr-code/:internalId',
+    loadChildren: () =>
+      import('./clients/equipments-form/equipments-form.module').then(
+        (m) => m.EquipmentsFormPageModule
+      ),
+  },
+  {
     path: 'equipments-list',
     loadChildren: () => import('./clients/equipments-list/equipments-list.module').then( m => m.EquipmentsListPageModule)
+  },
+  {
+    path: 'qrcode-page',
+    loadChildren: () => import('./clients/qrcode-page/qrcode-page.module').then( m => m.QrcodePagePageModule)
   },
 ];
 

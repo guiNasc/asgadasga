@@ -1,3 +1,4 @@
+import { QrcodePagePageModule } from './../qrcode-page/qrcode-page.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +14,8 @@ import { ClientsListPage } from './clients-list.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ClientsListPageRoutingModule
+    ClientsListPageRoutingModule,
+    QrcodePagePageModule,
   ],
   declarations: [ClientsListPage]
 })

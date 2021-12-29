@@ -2,6 +2,8 @@ import { ClientService } from './../shared/client.service';
 import { Client } from './../shared/client';
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
+import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
+
 
 @Component({
   selector: 'app-clients-list',
@@ -19,6 +21,8 @@ export class ClientsListPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
+    BarcodeScanner.stopScan();
+    BarcodeScanner.showBackground();
     this.loadClients();
   }
 
@@ -27,7 +31,7 @@ export class ClientsListPage implements OnInit {
   }
 
   doSearchClear() {
-    this.loadClients();''
+    this.loadClients();
   }
 
   async doSearchbarChange($event: any) {
@@ -53,7 +57,6 @@ export class ClientsListPage implements OnInit {
 
       toast.present();
     } catch (error) {
-
       const toast = await this.toast.create({
         header: 'Erro',
         message: 'Não foi possível excluir o contato.',
@@ -83,5 +86,4 @@ export class ClientsListPage implements OnInit {
     });
     alert.present();
   }
-
 }

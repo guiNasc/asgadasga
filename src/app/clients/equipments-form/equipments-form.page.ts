@@ -27,11 +27,20 @@ export class EquipmentsFormPage implements OnInit {
     this.clientId = this.route.snapshot.paramMap.get('clientId');
     if (idParam) {
       this.title = 'Editar equipamento';
-      await this.load(parseInt(idParam));
+      await this.loadById(parseInt(idParam));
+    }
+
+    const internalId = this.route.snapshot.paramMap.get('internalId');
+    if (internalId) {
+      await this.loadByInternalId(internalId);
     }
   }
 
-  async load(id: number) {
+  async loadByInternalId(internalId: string) {
+    this.equipment = await this.equipmentService.getByInternalId(internalId);
+  }
+
+  async loadById(id: number) {
     this.equipment = await this.equipmentService.getById(id);
   }
 

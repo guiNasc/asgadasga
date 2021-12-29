@@ -68,10 +68,25 @@ export class EquipmentService {
   }
 
   async getAllByClientId(internalClientId: string) {
-    const sql = 'select * from equipments where internal_client_id = ? order by name';
+    const sql =
+      'select * from equipments where internal_client_id = ? order by name';
     const data = [internalClientId];
     const result = await this.sqliteService.doQuery(sql, data);
     return this.fill(result.values);
+  }
+
+  async getByInternalId(internalId: string) {
+    const sql = 'select * from equipments where internal_id = ?';
+    const data = [internalId];
+    const result = await this.sqliteService.doQuery(sql, data);
+    const equipments = this.fill(result.values);
+    const equipment = new Equipment();
+
+    if (equipments.length && equipments.length > 0) {
+      return equipments[0];
+    }
+
+    return equipment;
   }
 
   fill(rows: any) {
