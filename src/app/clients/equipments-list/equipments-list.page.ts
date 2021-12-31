@@ -1,3 +1,4 @@
+import { MaintenanceService } from './../shared/maintenance.service';
 import { Client } from './../shared/client';
 import { EquipmentService } from './../shared/equipment.service';
 import { Equipment } from './../shared/equipment';
@@ -24,7 +25,8 @@ export class EquipmentsListPage implements OnInit, OnChanges {
   constructor(
     private alert: AlertController,
     private toast: ToastController,
-    private equipmentService: EquipmentService
+    private equipmentService: EquipmentService,
+    private maintenanceService: MaintenanceService
   ) {}
 
   ngOnInit() {}
@@ -38,6 +40,20 @@ export class EquipmentsListPage implements OnInit, OnChanges {
     if (this.client && this.client.internalId) {
       this.equipments = await this.equipmentService.getAllByClientId(
         this.client.internalId
+      );
+
+      Promise.all(
+        this.equipments.map(async (e) => {
+          const maintenance =
+            await this.maintenanceService.getLastByEquipmentId(e.internalId);
+
+          if (maintenance?.id) {
+            e.lastMaintenance = new Date(maintenance.madeAt)
+              .toLocaleString('pt-BR')
+              .split(' ')[0];
+          }
+          return e;
+        })
       );
     }
   }

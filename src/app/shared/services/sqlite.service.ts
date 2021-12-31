@@ -498,6 +498,7 @@ export class SQLiteService {
     await appDB.open();
     const result = await appDB.query(statement, params);
     await this.closeConnection(defaultDb.database);
+    console.log(`doQueryResult`, result);
     return result;
   }
 

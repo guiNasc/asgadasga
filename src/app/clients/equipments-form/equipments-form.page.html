@@ -54,9 +54,11 @@
         [(ngModel)]="equipment.info"
         name="info"
         type="text"
-        maxlength="500"
+        maxlength="1000"
       ></ion-textarea>
     </ion-item>
+
+    <app-maintenance-list #maintenanceList [equipment]="equipment"></app-maintenance-list>
 
     <div class="ion-margin-vertical">
       <ion-button

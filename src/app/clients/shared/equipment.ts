@@ -7,6 +7,7 @@ export class Equipment {
   model: string;
   producer: string;
   info: string;
+  lastMaintenance: string;
 
   static build(
     id: number,

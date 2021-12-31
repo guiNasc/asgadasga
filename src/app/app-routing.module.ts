@@ -71,11 +71,38 @@ const routes: Routes = [
   },
   {
     path: 'equipments-list',
-    loadChildren: () => import('./clients/equipments-list/equipments-list.module').then( m => m.EquipmentsListPageModule)
+    loadChildren: () =>
+      import('./clients/equipments-list/equipments-list.module').then(
+        (m) => m.EquipmentsListPageModule
+      ),
   },
   {
     path: 'qrcode-page',
-    loadChildren: () => import('./clients/qrcode-page/qrcode-page.module').then( m => m.QrcodePagePageModule)
+    loadChildren: () =>
+      import('./clients/qrcode-page/qrcode-page.module').then(
+        (m) => m.QrcodePagePageModule
+      ),
+  },
+  {
+    path: 'maintenance/new/:internalEquipmentId',
+    loadChildren: () =>
+      import('./clients/maintenance-form/maintenance-form.module').then(
+        (m) => m.MaintenanceFormPageModule
+      ),
+  },
+  {
+    path: 'maintenance/edit/:id',
+    loadChildren: () =>
+      import('./clients/maintenance-form/maintenance-form.module').then(
+        (m) => m.MaintenanceFormPageModule
+      ),
+  },
+  {
+    path: 'maintenance-list',
+    loadChildren: () =>
+      import('./clients/maintenance-list/maintenance-list.module').then(
+        (m) => m.MaintenanceListPageModule
+      ),
   },
 ];
 

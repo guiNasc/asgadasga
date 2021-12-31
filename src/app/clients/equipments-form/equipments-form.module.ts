@@ -8,6 +8,7 @@ import { EquipmentsFormPageRoutingModule } from './equipments-form-routing.modul
 
 import { EquipmentsFormPage } from './equipments-form.page';
 import { QrCodeModule } from 'ng-qrcode';
+import { MaintenanceListPageModule } from '../maintenance-list/maintenance-list.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { QrCodeModule } from 'ng-qrcode';
     FormsModule,
     IonicModule,
     EquipmentsFormPageRoutingModule,
-    QrCodeModule
+    QrCodeModule,
+    MaintenanceListPageModule
   ],
   declarations: [EquipmentsFormPage]
 })

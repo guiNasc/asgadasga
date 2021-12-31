@@ -1,0 +1,34 @@
+<ion-list class="maintenance-form-page-list">
+  <ion-list-header>
+    <ion-label class="title">Manutenções</ion-label>
+    <ion-button
+      color="secondary"
+      [disabled]="!equipment.id"
+      [routerLink]="['/maintenance/new/', equipment.internalId]"
+      >Adicionar</ion-button
+    >
+  </ion-list-header>
+
+  <ion-item-sliding *ngFor="let maintenance of maintenances">
+    <ion-item [routerLink]="['/maintenance/edit/', maintenance.id]">
+      <ion-label class="ion-text-wrap">
+        <ion-text>
+          <h3>Profissional: {{maintenance.professionalRelated}}</h3>
+        </ion-text>
+        <p *ngIf="maintenance.madeAtAsString" >Realizada em: {{formatDate(maintenance.madeAtAsString)}}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item-options side="start">
+      <ion-item-option [routerLink]="['/maintenance/edit/', maintenance.id]">
+        Editar
+      </ion-item-option>
+    </ion-item-options>
+
+    <ion-item-options side="end">
+      <ion-item-option color="danger" (click)="delete(maintenance)">
+        Excluir
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</ion-list>

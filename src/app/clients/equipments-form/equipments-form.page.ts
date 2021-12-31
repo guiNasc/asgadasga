@@ -1,6 +1,7 @@
+import { MaintenanceListPage } from './../maintenance-list/maintenance-list.page';
 import { EquipmentService } from './../shared/equipment.service';
 import { Equipment } from './../shared/equipment';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
@@ -13,6 +14,8 @@ export class EquipmentsFormPage implements OnInit {
   title: string = 'Novo Equipamento';
   equipment: Equipment;
   clientId: string;
+
+  @ViewChild(MaintenanceListPage) maintenanceList: MaintenanceListPage;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +38,10 @@ export class EquipmentsFormPage implements OnInit {
     if (internalId) {
       await this.loadByInternalId(internalId);
     }
+  }
+
+  ionViewWillEnter() {
+    this.maintenanceList.load();
   }
 
   async presentNotFoundToast() {

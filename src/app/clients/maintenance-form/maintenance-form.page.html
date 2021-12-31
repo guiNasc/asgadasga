@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="stacked">Técnico responsável</ion-label>
+      <ion-input
+        autocapitalize="on"
+        [(ngModel)]="maintenance.professionalRelated"
+        name="professionalRelated"
+        maxlength="50"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Data da manutenção</ion-label>
+      <ion-datetime
+        locale="pt-BR"
+        name="madeAt"
+        presentation="date"
+        [(ngModel)]="maintenance.madeAtAsString"
+        [value]="maintenance.madeAtAsString"
+      ></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Garantia até</ion-label>
+      <ion-datetime
+        locale="pt-BR"
+        name="guarantee"
+        presentation="date"
+        [(ngModel)]="maintenance.guaranteeAsString"
+        [value]="maintenance.guaranteeAsString"
+      ></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Descrição</ion-label>
+      <ion-textarea
+        [(ngModel)]="maintenance.info"
+        name="info"
+        type="text"
+        maxlength="1000"
+      ></ion-textarea>
+    </ion-item>
+
+    <div class="ion-margin-vertical">
+      <ion-button
+        [disabled]="!maintenance.professionalRelated || !maintenance.info"
+        type="submit"
+        color="secondary"
+        expand="block"
+        >Salvar</ion-button
+      >
+    </div>
+  </form>
+</ion-content>
